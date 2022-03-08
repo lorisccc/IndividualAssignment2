@@ -1,4 +1,4 @@
-#Individual Assignment 2
+# Individual Assignment 2 - Calculator
 
 **Student: Loris Coccia**
 **Student ID: 2056314**
