@@ -21,80 +21,86 @@ int randomNumber( int lower, int upper );
 int main( int argc, char *argv[] ) {
 
     if (argc == 2) {
-        // Use current time as seed for random generator
-        srand(time(0));
-
-        // Open file
-        FILE *fpout;
-        // Define variables
-        int n, operator, num_oper;
-        float number, prevnum;
-
-
-        fpout = fopen(OUTFILE, "w");
-        if (fpout == NULL) {
-            puts("File path or name invalid");
-            return (-1);
-        }
-
-        // Print student id in the file
-        fprintf(fpout, "%d\n", STUDENT_ID);
-        // Read number from command line
+        int n;
+        // Read number from command line and check if the input parameter is a positive integer
         sscanf(argv[1], "%d", &n);
+        if (n > 0) {
+            // Use current time as seed for random generator
+            srand(time(0));
 
-        // Generate n-channel exercises
-        for (int i = 0; i < n; i++) {
+            // Open file
+            FILE *fpout;
+            // Define variables
+            int operator, num_oper;
+            float number, prevnum;
 
-            // Generate the first random number between 0 and 100 and write it in the file
-            prevnum = randomNumber(0, 100);
-            fprintf(fpout, "%.0f", prevnum);
-            // Generate number of operator for the current exercise
-            num_oper = randomNumber(3, 5);
 
-            for (int j = 0; j < num_oper; j++) {
-                operator = randomNumber(0,3);
-                // Generate the second number
-                number = randomNumber(0, 100);
-                // Using a switch to distinguish between the four operators
-                switch (operator) {
-
-                    case Addition:
-                        // Write the symbol in the file
-                        fprintf(fpout,"+%.0f", number);
-                        // Compute the partial total
-                        prevnum += number;
-                        break;
-
-                    case Subtraction:
-                        // Write the symbol in the file
-                        fprintf(fpout,"-%.0f", number);
-                        // Compute the partial total
-                        prevnum -= number;
-                        break;
-
-                    case Multiplication:
-                        // Write the symbol in the file
-                        fprintf(fpout,"*%.0f", number);
-                        // Compute the partial total
-                        prevnum *= number;
-                        break;
-
-                    case Division:
-                        // Write the symbol in the file
-                        fprintf(fpout,"/%.0f", number);
-                        // Compute the partial total
-                        prevnum /= number;
-                        break;
-
-                    default:
-                        break;
-                }
+            fpout = fopen(OUTFILE, "w");
+            if (fpout == NULL) {
+                puts("File path or name invalid");
+                return (-1);
             }
-            // Print the result
-            fprintf(fpout, "=%.2f\n", prevnum);
+
+            // Print student id in the file
+            fprintf(fpout, "%d\n", STUDENT_ID);
+
+            // Generate n-channel exercises
+            for (int i = 0; i < n; i++) {
+
+                // Generate the first random number between 0 and 100 and write it in the file
+                prevnum = randomNumber(0, 100);
+                fprintf(fpout, "%.0f", prevnum);
+                // Generate number of operator for the current exercise
+                num_oper = randomNumber(3, 5);
+
+                for (int j = 0; j < num_oper; j++) {
+                    operator = randomNumber(0,3);
+                    // Generate the second number
+                    number = randomNumber(0, 100);
+                    // Using a switch to distinguish between the four operators
+                    switch (operator) {
+
+                        case Addition:
+                            // Write the symbol in the file
+                            fprintf(fpout,"+%.0f", number);
+                            // Compute the partial total
+                            prevnum += number;
+                            break;
+
+                        case Subtraction:
+                            // Write the symbol in the file
+                            fprintf(fpout,"-%.0f", number);
+                            // Compute the partial total
+                            prevnum -= number;
+                            break;
+
+                        case Multiplication:
+                            // Write the symbol in the file
+                            fprintf(fpout,"*%.0f", number);
+                            // Compute the partial total
+                            prevnum *= number;
+                            break;
+
+                        case Division:
+                            // Write the symbol in the file
+                            fprintf(fpout,"/%.0f", number);
+                            // Compute the partial total
+                            prevnum /= number;
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+                // Print the result
+                fprintf(fpout, "=%.2f\n", prevnum);
+            }
+            // Close file
+            fclose(fpout);
         }
-        // Close file
-        fclose(fpout);
+        else {
+            printf("Error, the input parameter must be a positive integer number\n");
+        }
     }
     else if ( argc > 2 ) {
         printf("Too many arguments supplied.\n");
