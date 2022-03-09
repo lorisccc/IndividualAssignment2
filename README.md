@@ -7,8 +7,6 @@ This is the second individual assignment for the course "Software Engineering"
 
 The C source file is the src folder.
 
-The C executable is in the exe folder.
-
 ---
 
 ## Task
